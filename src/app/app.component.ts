@@ -3,7 +3,7 @@ import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} f
 import {TestComponentComponent} from './test-component/test-component.component';
 
 const MAX_COLUMNS_WIDTH = 12;
-const MIN_COLUMNS_WIDTH = 1;
+const MIN_COLUMNS_WIDTH = 3;
 
 interface ColumnItem {
     columnsWidth: number;
@@ -19,9 +19,9 @@ export class AppComponent {
     @ViewChild('itemsWrapper') itemsWrapper;
     config: ColumnItem[][] = [
         [
-            {columnsWidth: 1, component: 'TestComponentComponent'},
-            {columnsWidth: 1, component: 'TestComponentComponent'},
-            {columnsWidth: 1, component: 'TestComponentComponent'},
+            {columnsWidth: 3, component: 'TestComponentComponent'},
+            {columnsWidth: 3, component: 'TestComponentComponent'},
+            {columnsWidth: 3, component: 'TestComponentComponent'},
         ],
         []
     ];
@@ -77,6 +77,14 @@ export class AppComponent {
         if (element.offsetWidth - event.offsetX < 20) {
             this.resizeItem = item;
             this.resizeStartPos = event.clientX;
+        }
+    }
+
+    @HostListener('mouseout', ['$event'])
+    mouseLeaveWindow(event: MouseEvent) {
+        const from = event.relatedTarget as HTMLElement;
+        if (!from || from.nodeName === 'HTML') {
+            this.stopResizing();
         }
     }
 
