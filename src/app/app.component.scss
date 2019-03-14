@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  background: #eee;
+  min-height: 200px;
+  .block {
+    position: relative;
+    border: 1px solid black;
+    height: 200px;
+    background: #fff;
+    @for $i from 1 to 13 {
+      &.block-#{$i}{
+        width: ($i / 12) * 100%;
+      }
+    }
+    &:after{
+      content: " ";
+      position: absolute;
+      right: 0;
+      height: 100%;
+      width: 20px;
+      cursor:col-resize;
+    }
+  }
+}
+
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.2;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
